@@ -131,11 +131,13 @@
     <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Tree.cpp" />
+    <ClCompile Include="TreeHolder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Point.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Tree.h" />
+    <ClInclude Include="TreeHolder.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

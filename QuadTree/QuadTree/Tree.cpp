@@ -1,4 +1,8 @@
 #include "Tree.h"
+Tree::Tree() 
+{
+
+}
 Tree::Tree(Rectangle r, int n, SDL_Renderer* re) 
 {
 	boundary = r;
@@ -8,8 +12,9 @@ Tree::Tree(Rectangle r, int n, SDL_Renderer* re)
 	width = r.getWidth();
 	height = r.getHeight();
 	rend = re;
+	points.clear();
 }
-std::ostream& operator <<(std::ostream& os, const Tree& t) {
+std::ostream& operator <<(std::ostream& os, const Tree& t) { //overloading ostream operator
 	os << t.x << " " << t.y << " " << t.width << " " << t.height << std::endl;
 	return os;
 }
@@ -26,18 +31,14 @@ void Tree::subdivide(Point p) {
 	ne.renderRectangle(rend);
 	sw.renderRectangle(rend);
 	se.renderRectangle(rend);
-	Tree northWest(nw, capacity, rend);
-	Tree northEast(ne, capacity, rend);
-	Tree southWest(sw, capacity, rend);
-	Tree southEast(se, capacity, rend); //create new tree
-	northWest.insert(p); //check if point can be inserted into the new quadrants
-	northEast.insert(p);
-	southWest.insert(p);
-	southEast.insert(p);
+	northWest = new Tree(nw, capacity, rend);
+	northEast = new Tree(ne, capacity, rend);
+	southWest = new Tree(sw, capacity, rend);
+	southEast = new Tree(se, capacity, rend); //create new tree dynamically 
 	divided = true;
 }
 void Tree::insert(Point p) {
-	if (boundary.contains(p) == false) return; //if the point is not within the set constraints it does not fit into this boundary
+	if (boundary.contains(p) == false) return; //if the point is not within the set constraints it does not fit into this tree
 	if (points.size() < capacity) { //if the tree does not contain as many points as it can allow, place point in this subtree
 		std::cout << p;
 		points.push_back(p);
@@ -45,8 +46,16 @@ void Tree::insert(Point p) {
 	else {
 		if (!divided) { //if this tree has not been divided yet, then subdivide
 			subdivide(p); //if capacity is reached, break tree into subtrees
-			
 		}
+		northWest->insert(p); //check if point can be inserted into the new quadrants after subdividing them
+		northEast->insert(p);
+		southWest->insert(p);
+		southEast->insert(p);
 	}
 }
-
+Tree::~Tree() { //delete dynamic objects
+	delete northWest;
+	delete northEast;
+	delete southWest;
+	delete southEast;
+}
