@@ -2,11 +2,15 @@
 Rectangle::Rectangle() {
 
 }
-Rectangle::Rectangle(double x, double y, double w, double h) {
+void Rectangle::Init(double x, double y, double w, double h) {
 	this->x = x;
 	this->y = y;
 	width = w;
 	height = h;
+	rect.x = x;
+	rect.y = y;
+	rect.w = w;
+	rect.h = h;
 }
 double Rectangle::getX() {
 	return x;
@@ -26,4 +30,9 @@ bool Rectangle::contains(Point p) { //x and y refers to the centre of the rectan
 	if (p.getY() < y - height) return false;
 	if (p.getY() > y + height) return false;
 	else return true;
+}
+void Rectangle::renderRectangle(SDL_Renderer* rend) {
+	SDL_SetRenderDrawColor(rend, 255, 255, 255, 255);
+	SDL_RenderDrawRect(rend, &rect);
+	SDL_RenderPresent(rend);
 }

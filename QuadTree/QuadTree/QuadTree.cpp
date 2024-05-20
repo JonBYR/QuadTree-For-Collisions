@@ -5,17 +5,28 @@
 #include "Tree.h"
 #include "Rectangle.h"
 #include "Point.h"
-int main()
+#include <SDL.h>
+int main(int argc, char* args[])
 { //following this tutorial https://www.youtube.com/watch?v=OJxEcs0w_kE
-    Rectangle rect(200, 200, 200, 200);
-    Tree quadtree(std::move(rect), 4);
+    if (SDL_Init(SDL_INIT_EVERYTHING >= 0)) return 1;
+    int width = 800;
+    int height = 600;
+    SDL_Window* window = SDL_CreateWindow("QuadTree Demonstration", 0, 0, width, height, SDL_WINDOW_RESIZABLE);
+    SDL_Renderer* rend = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    Rectangle rect;
+    rect.Init(00, 00, width, height);
+    Tree quadtree(std::move(rect), 4, rend);
     std::cout << quadtree;
-    for (int i = 0; i < 5; i++) {
-        int randX = rand() % (int)200 + 1;
-        int randY = rand() % (int)200 + 1;
+    rect.renderRectangle(rend);
+    for (int i = 0; i < 50; i++) {
+        int randX = rand() % width + 1;
+        int randY = rand() % height + 1;
         Point p(randX, randY);
+        p.drawPoint(rend);
         quadtree.insert(p);
     }
+    SDL_Delay(10000);
+    return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu

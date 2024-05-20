@@ -5,10 +5,11 @@
 #include <ostream>
 #include <vector>
 #include <cstdlib>
+#include <SDL.h>
 class Tree
 {
 public:
-	Tree(Rectangle r, int n);
+	Tree(Rectangle r, int n, SDL_Renderer* re);
 	friend std::ostream& operator <<(std::ostream& os, const Tree& t);
 	void insert(Point p);
 	void subdivide(Point p);
@@ -21,6 +22,7 @@ private:
 	int capacity;
 	std::vector<Point> points;
 	bool divided = false;
+	SDL_Renderer* rend;
 };
 
 

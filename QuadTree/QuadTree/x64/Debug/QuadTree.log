@@ -1,3 +1,2 @@
 ﻿  QuadTree.cpp
-C:\Users\Computing\source\repos\QuadTree\QuadTree\Rectangle.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  QuadTree.vcxproj -> C:\Users\Computing\source\repos\QuadTree\x64\Debug\QuadTree.exe
+  QuadTree.vcxproj -> C:\Users\Computing\Documents\GitHub\QuadTree-For-Collisions\QuadTree\x64\Debug\QuadTree.exe
