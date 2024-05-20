@@ -25,6 +25,7 @@ int main(int argc, char* args[])
         p.drawPoint(rend);
         quadtree.insert(p);
     }
+    SDL_RenderPresent(rend);
     SDL_Delay(10000);
     return 0;
 }

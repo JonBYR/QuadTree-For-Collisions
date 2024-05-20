@@ -25,14 +25,14 @@ double Rectangle::getHeight() {
 	return height;
 }
 bool Rectangle::contains(Point p) { //x and y refers to the centre of the rectangle
-	if (p.getX() < x - width) return false;
+	if (p.getX() < x) return false;
 	if (p.getX() > x + width) return false;
-	if (p.getY() < y - height) return false;
+	if (p.getY() < y) return false;
 	if (p.getY() > y + height) return false;
 	else return true;
 }
 void Rectangle::renderRectangle(SDL_Renderer* rend) {
 	SDL_SetRenderDrawColor(rend, 255, 255, 255, 255);
 	SDL_RenderDrawRect(rend, &rect);
-	SDL_RenderPresent(rend);
+	
 }
