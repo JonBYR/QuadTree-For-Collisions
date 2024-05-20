@@ -23,7 +23,7 @@ int main(int argc, char* args[])
         int randY = rand() % height + 1; //generate points
         Point p(randX, randY);
         p.drawPoint(rend);
-        quadtree.insert(p);
+        quadtree.insert(p); //insert p into the general quadtree, which will eventually go into it's subsection
     }
     SDL_RenderPresent(rend);
     SDL_Delay(10000);
