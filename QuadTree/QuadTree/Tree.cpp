@@ -3,7 +3,7 @@ Tree::Tree()
 {
 
 }
-Tree::Tree(Rectangle r, int n, SDL_Renderer* re) 
+Tree::Tree(Rectangle r, int n, SDL_Renderer* re, Tree* p) 
 {
 	boundary = r;
 	capacity = n;
@@ -13,6 +13,14 @@ Tree::Tree(Rectangle r, int n, SDL_Renderer* re)
 	height = r.getHeight();
 	rend = re;
 	points.clear();
+	parent = p;
+	currentPoints = n;
+	if (p != nullptr) {
+		for (int i = 0; i < p->points.size(); i++) { //should any points already exist in the quadrant, then ensure that the number of remaining points is lessened to fit the desired capacity
+			Point point = p->points[i];
+			if (boundary.contains(point)) currentPoints--;
+		}
+	}
 }
 std::ostream& operator <<(std::ostream& os, const Tree& t) { //overloading ostream operator
 	os << t.x << " " << t.y << " " << t.width << " " << t.height << std::endl;
@@ -31,15 +39,15 @@ void Tree::subdivide(Point p) {
 	ne.renderRectangle(rend);
 	sw.renderRectangle(rend);
 	se.renderRectangle(rend);
-	northWest = new Tree(nw, capacity, rend);
-	northEast = new Tree(ne, capacity, rend);
-	southWest = new Tree(sw, capacity, rend);
-	southEast = new Tree(se, capacity, rend); //create new tree dynamically 
+	northWest = new Tree(nw, capacity, rend, this);
+	northEast = new Tree(ne, capacity, rend, this);
+	southWest = new Tree(sw, capacity, rend, this);
+	southEast = new Tree(se, capacity, rend, this); //create new tree dynamically 
 	divided = true;
 }
 void Tree::insert(Point p) {
 	if (boundary.contains(p) == false) return; //if the point is not within the set constraints it does not fit into this tree
-	if (points.size() < capacity) { //if the tree does not contain as many points as it can allow, place point in this subtree
+	if (points.size() < currentPoints) { //if the tree does not contain as many points as it can allow, place point in this subtree
 		std::cout << p;
 		points.push_back(p);
 	}

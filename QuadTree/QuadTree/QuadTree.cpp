@@ -15,7 +15,7 @@ int main(int argc, char* args[])
     SDL_Renderer* rend = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     Rectangle rect;
     rect.Init(00, 00, width, height);
-    Tree quadtree(std::move(rect), 4, rend); //should split at 4, similiar issues to tutorial however
+    Tree quadtree(std::move(rect), 4, rend, nullptr); //should split at 4, similiar issues to tutorial however
     std::cout << quadtree;
     rect.renderRectangle(rend);
     for (int i = 0; i < 500; i++) {

@@ -10,7 +10,7 @@ class Tree
 {
 public:
 	Tree();
-	Tree(Rectangle r, int n, SDL_Renderer* re);
+	Tree(Rectangle r, int n, SDL_Renderer* re, Tree* p);
 	friend std::ostream& operator <<(std::ostream& os, const Tree& t);
 	void insert(Point p);
 	void subdivide(Point p);
@@ -22,13 +22,15 @@ private:
 	double width;
 	double height;
 	int capacity;
-	std::vector<Point> points;
+	int currentPoints;
 	bool divided = false;
 	SDL_Renderer* rend;
 	Tree* northWest;
 	Tree* northEast;
 	Tree* southWest;
 	Tree* southEast;
+	Tree* parent;
+	std::vector<Point> points;
 };
 
 
